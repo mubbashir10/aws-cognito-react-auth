@@ -1,10 +1,16 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
 import Amplify, { Auth } from "aws-amplify";
 import { useInput } from "./utils/forms";
-import { Toast } from "./utils/notifs";
+import { Toast } from "./utils/notifications";
 import { COGNITO } from "./configs/aws";
+import { styled } from "@material-ui/core/styles";
+
+const Field = styled(TextField)({
+  margin: "10px 0",
+});
 
 Amplify.configure({
   aws_cognito_region: COGNITO.REGION,
@@ -42,7 +48,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ width: 500, margin: "100px auto" }}>
+    <Card style={{ width: 500, margin: "100px auto", padding: "40px" }}>
       <form
         style={{
           display: "flex",
@@ -55,41 +61,13 @@ const App: React.FC = () => {
           {" "}
           New Account Registration
         </h1>
-        <TextField
-          style={{ margin: "10px 0" }}
-          label="Name"
-          variant="outlined"
-          {...bindName}
-        />
-        <TextField
-          style={{ margin: "10px 0" }}
-          label="Email"
-          variant="outlined"
-          {...bindEmail}
-        />
-        <TextField
-          style={{ margin: "10px 0" }}
-          label="Phone"
-          variant="outlined"
-          {...bindPhone}
-        />
-        <TextField
-          style={{ margin: "10px 0" }}
-          label="Company"
-          variant="outlined"
-          {...bindCompany}
-        />
-        <TextField
-          style={{ margin: "10px 0" }}
-          label="Password"
-          variant="outlined"
-          type="password"
-          {...bindPassword}
-        />
-        <TextField
-          style={{ margin: "10px 0" }}
+        <Field label="Name" {...bindName} />
+        <Field label="Email" {...bindEmail} />
+        <Field label="Phone" {...bindPhone} />
+        <Field label="Company" {...bindCompany} />
+        <Field label="Password" type="password" {...bindPassword} />
+        <Field
           label="Confirm Password"
-          variant="outlined"
           type="password"
           {...bindConfirmPassword}
         />
@@ -97,7 +75,7 @@ const App: React.FC = () => {
           Sign Up
         </Button>
       </form>
-    </div>
+    </Card>
   );
 };
 
