@@ -5,12 +5,14 @@ import { useInput } from "./../utils/forms";
 import { Toast } from "./../utils/notifications";
 import { Auth } from "aws-amplify";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Field = styled(TextField)({
   margin: "10px 0",
 });
 
 const Signup: React.FC = () => {
+  const [loading, setLoading] = React.useState(false);
   const { value: name, bind: bindName } = useInput("");
   const { value: email, bind: bindEmail } = useInput("");
   const { value: phone, bind: bindPhone } = useInput("");
@@ -20,6 +22,16 @@ const Signup: React.FC = () => {
 
   const handleSignUp = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();
+    setLoading(true);
+
+    if (password !== confirmPassword) {
+      Toast(
+        "Error!!",
+        "Password and Confirm Password should be same",
+        "danger"
+      );
+      return;
+    }
     try {
       const { user } = await Auth.signUp({
         username: email,
@@ -37,6 +49,7 @@ const Signup: React.FC = () => {
       console.error(error);
       Toast("Error!!", error.message, "danger");
     }
+    setLoading(false);
   };
 
   return (
@@ -53,8 +66,8 @@ const Signup: React.FC = () => {
         New Account Registration
       </h1>
       <Field label="Name" {...bindName} />
-      <Field label="Email" {...bindEmail} />
-      <Field label="Phone" {...bindPhone} />
+      <Field label="Email" {...bindEmail} type="email" />
+      <Field label="Phone" {...bindPhone} type="tel" />
       <Field label="Company" {...bindCompany} />
       <Field label="Password" type="password" {...bindPassword} />
       <Field
@@ -62,7 +75,14 @@ const Signup: React.FC = () => {
         type="password"
         {...bindConfirmPassword}
       />
-      <Button variant="contained" color="primary" size="large" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        type="submit"
+        disabled={loading}
+      >
+        {loading && <CircularProgress size={20} style={{ marginRight: 20 }} />}
         Sign Up
       </Button>
     </form>

@@ -1,10 +1,7 @@
 import React from "react";
-
 import Card from "@material-ui/core/Card";
 import Amplify from "aws-amplify";
 import Signup from "./components/Signup";
-
-import { Toast } from "./utils/notifications";
 import { COGNITO } from "./configs/aws";
 
 Amplify.configure({
