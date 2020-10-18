@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Amplify, { Auth } from "aws-amplify";
 import { useInput } from "./utils/forms";
+import { Toast } from "./utils/notifs";
 import { COGNITO } from "./configs/aws";
 
 Amplify.configure({
@@ -33,8 +34,10 @@ const App: React.FC = () => {
         },
       });
       console.log(user);
+      user && Toast("Success!!", "Signup was successful", "success");
     } catch (error) {
-      NotificationManager.error("Sign Up Failed!");
+      console.error(error);
+      Toast("Error!!", error.message, "danger");
     }
   };
 
@@ -44,7 +47,6 @@ const App: React.FC = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          // alignItems: "baseline",
           justifyContent: "space-between",
         }}
         onSubmit={handleSignUp}
