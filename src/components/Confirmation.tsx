@@ -22,40 +22,18 @@ const Signup: React.FC = () => {
 
   const history = useHistory();
 
-  const { value: name, bind: bindName } = useInput("");
   const { value: email, bind: bindEmail } = useInput("");
-  const { value: phone, bind: bindPhone } = useInput("");
-  const { value: company, bind: bindCompany } = useInput("");
-  const { value: password, bind: bindPassword } = useInput("");
-  const { value: confirmPassword, bind: bindConfirmPassword } = useInput("");
+  const { value: code, bind: bindCode } = useInput("");
 
-  const handleSignUp = async (e: React.SyntheticEvent<Element, Event>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setLoading(true);
 
-    if (password !== confirmPassword) {
-      Toast(
-        "Error!!",
-        "Password and Confirm Password should be same",
-        "danger"
-      );
-      return;
-    }
     try {
-      await Auth.signUp({
-        username: email,
-        password: confirmPassword,
-        attributes: {
-          email,
-          name,
-          phone_number: phone,
-          "custom:company": company,
-        },
-      });
-      Toast("Success!!", "Signup was successful", "success");
-      history.push("/confirmation");
+      await Auth.confirmSignUp(email, code);
+      Toast("Success!!", "Verified Successfully", "success");
+      history.push("/signin");
     } catch (error) {
-      console.error(error);
       Toast("Error!!", error.message, "danger");
     }
     setLoading(false);
@@ -68,22 +46,14 @@ const Signup: React.FC = () => {
         flexDirection: "column",
         justifyContent: "space-between",
       }}
-      onSubmit={handleSignUp}
+      onSubmit={handleSubmit}
     >
       <h1 style={{ fontSize: "22px", fontWeight: 800 }}>
         {" "}
-        New Account Registration
+        Verify Your Account
       </h1>
-      <Field label="Name" {...bindName} />
       <Field label="Email" {...bindEmail} type="email" />
-      <Field label="Phone" {...bindPhone} type="tel" />
-      <Field label="Company" {...bindCompany} />
-      <Field label="Password" type="password" {...bindPassword} />
-      <Field
-        label="Confirm Password"
-        type="password"
-        {...bindConfirmPassword}
-      />
+      <Field label="Verification Code" {...bindCode} />
       <Button
         variant="contained"
         color="primary"
@@ -92,9 +62,9 @@ const Signup: React.FC = () => {
         disabled={loading}
       >
         {loading && <CircularProgress size={20} style={{ marginRight: 20 }} />}
-        Sign Up
+        Verify your account
       </Button>
-      <DLink to="/signin">go to login &rarr;</DLink>
+      <DLink to="/signup">make an account &rarr;</DLink>
     </form>
   );
 };

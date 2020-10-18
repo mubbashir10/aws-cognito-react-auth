@@ -1,7 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Amplify from "aws-amplify";
 import Signup from "./components/Signup";
+import Confirmation from "./components/Confirmation";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+
 import { COGNITO } from "./configs/aws";
 
 Amplify.configure({
@@ -12,9 +17,24 @@ Amplify.configure({
 
 const App: React.FC = () => {
   return (
-    <Card style={{ width: 500, margin: "100px auto", padding: "40px" }}>
-      <Signup />
-    </Card>
+    <Router>
+      <Card style={{ width: 500, margin: "100px auto", padding: "40px" }}>
+        <Switch>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/signin">
+            <Login />
+          </Route>
+          <Route path="/confirmation">
+            <Confirmation />
+          </Route>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Card>
+    </Router>
   );
 };
 
