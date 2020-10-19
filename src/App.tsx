@@ -6,8 +6,8 @@ import Signup from "./components/Signup";
 import Confirmation from "./components/Confirmation";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-
 import { COGNITO } from "./configs/aws";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 Amplify.configure({
   aws_cognito_region: COGNITO.REGION,
@@ -30,7 +30,7 @@ const App: React.FC = () => {
             <Confirmation />
           </Route>
           <Route path="/">
-            <Dashboard />
+            <ProtectedRoute component={Dashboard} />
           </Route>
         </Switch>
       </Card>

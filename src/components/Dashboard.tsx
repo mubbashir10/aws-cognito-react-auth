@@ -5,8 +5,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Toast } from "./../utils/notifications";
 import { Auth } from "aws-amplify";
 import LockIcon from "@material-ui/icons/Lock";
+import { useHistory } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
+  const history = useHistory();
   const goToLinkedIn = () => {
     const a = document.createElement("a");
     a.target = "_blank";
@@ -18,6 +20,7 @@ const Dashboard: React.FC = () => {
     try {
       await Auth.signOut();
       Toast("Success!!", "Logged out successfully!", "success");
+      history.push("/signin");
     } catch (error) {
       Toast("Error!!", error.message, "danger");
     }
@@ -35,7 +38,7 @@ const Dashboard: React.FC = () => {
         style={{ marginRight: "20px" }}
         onClick={goToLinkedIn}
       >
-        <LinkedInIcon /> My LinkedIn
+        <LinkedInIcon /> My LinkedIn Profile
       </Button>
       <Button variant="contained" color="default" onClick={handleLogout}>
         <ExitToAppIcon /> Logout
