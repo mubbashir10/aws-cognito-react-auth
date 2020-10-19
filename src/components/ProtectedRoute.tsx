@@ -3,11 +3,9 @@ import { Auth } from "aws-amplify";
 import { Route, Redirect } from "react-router-dom";
 
 interface Props {
-  component: any;
+  component: React.FC;
 }
 const ProtectedRoute: React.FC<Props> = ({ component }) => {
-  const Component = component;
-
   const [isAuthenticated, setLoggedIn] = React.useState(true);
   React.useEffect(() => {
     (async () => {
@@ -29,7 +27,11 @@ const ProtectedRoute: React.FC<Props> = ({ component }) => {
   return (
     <Route
       render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/signin" />
+        isAuthenticated ? (
+          React.createElement(component)
+        ) : (
+          <Redirect to="/signin" />
+        )
       }
     />
   );
