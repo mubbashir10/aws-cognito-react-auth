@@ -12,4 +12,4 @@ You can get the required info from you user pool. If you don't know how to setup
 
 ## About AWS Cognito
 
-AWS Cognito is managed authentication service by AWS. To use it's apis we use AWS Amplifyy SDK (https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#create-authentication-service). AWS Amplifyy is the AWS counterpart of Google's Firebase.
+AWS Cognito is a managed authentication service by AWS. To use it's APIs we use (AWS Amplifyy SDK) [https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#create-authentication-service]. AWS Amplifyy is the AWS counterpart of Google's Firebase.
