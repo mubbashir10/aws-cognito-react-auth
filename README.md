@@ -6,7 +6,7 @@ run `yarn` in the root directory
 
 #### Change configuration
 
-`src/configs/aws/ts`
+`src/configs/aws.ts`
 
 You can get the required info from you user pool. If you don't know how to setup aws cognito then please [read this first](https://dev.to/mubbashir10/implement-auth-in-react-easily-using-aws-cognito-5bhi)
 
