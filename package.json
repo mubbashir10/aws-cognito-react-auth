@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-notifications-component": "^2.4.0",
     "@types/react-router-dom": "^5.1.6",
+    "aws-amplify": "^3.3.9",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-notifications-component": "^2.4.1",
